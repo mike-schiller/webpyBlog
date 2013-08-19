@@ -44,8 +44,26 @@ def pathIsImage(path):
     return True
   elif path.endswith('.jpeg'):
     return True
+  elif path.endswith('.ico'):
+    return True
   else:
     return False
+
+def setupNavLinkStyles(config):
+    config['navHomeStyle'] = "navDefaultLinkStyle"
+    config['navBlogStyle'] = "navDefaultLinkStyle"
+    config['navTipsStyle'] = "navDefaultLinkStyle"
+    config['navGithubStyle'] = "navDefaultLinkStyle"
+    config['navConnectStyle'] = "navDefaultLinkStyle"
+    config['navPanelHomeStyle'] = "navPanelDefaultLinkStyle"
+    config['navPanelBlogStyle'] = "navPanelDefaultLinkStyle"
+    config['navPanelTipsStyle'] = "navPanelDefaultLinkStyle"
+    config['navPanelGithubStyle'] = "navPanelDefaultLinkStyle"
+    config['navPanelConnectStyle'] = "navPanelDefaultLinkStyle"
+
+    if config['navTitle'] == 'Home':
+        config['nav'+config['navTitle']+'Style'] = "navThisLinkStyle"
+        config['navPanel'+config['navTitle']+'Style'] = "navPanelThisLinkStyle"
 
 
 def addPage(fspath,fsrelpath):
@@ -55,6 +73,7 @@ def addPage(fspath,fsrelpath):
     config['fspath'] = fspath
     config['fsrelpath'] = fsrelpath
     renderClass = config['postRenderer']
+    setupNavLinkStyles(config)
     g.urls = g.urls + (config['postWebPath'],renderClass)
     g.pages[config['postWebPath']] = config
 
