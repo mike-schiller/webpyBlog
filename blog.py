@@ -84,15 +84,22 @@ def addPage(fspath,fsrelpath,fsrootpath):
     # map the web path to the appropriate configuration dictionary
     g.pages[config['postWebPath']] = config
 
-def getTemplateFileContents(templateFileName,config):
-  if templateFileName.startswith('.'):
-      templateFileFullName = os.path.join(config['fspath'],templateFileName)
-  else:
-      templateFileFullName = os.path.join(config['fsrootpath'],templateFileName)
+def getTemplateFileContents(templateFileFullName):
   with open(templateFileFullName) as templateFile:
       rtn = templateFile.read()
   return rtn
 
+def getTemplateFileName(templateFileName,config):
+  if templateFileName.startswith('.'):
+      templateFileFullName = os.path.join(config['fspath'],templateFileName)
+  else:
+      templateFileFullName = os.path.join(config['fsrootpath'],templateFileName)
+  return templateFileFullName
+
+def minimalRenderer(templateFile,config):
+  print templateFile
+  renderer = web.template.frender(templateFile)
+  return renderer(config)
 
 class homeRenderer():
   def GET(self):
@@ -100,16 +107,19 @@ class homeRenderer():
     config= g.pages[webpath]
     content = {}
 
+    print config
+
     for contentBlockKey in config['contentBlocks']:
         if config['contentBlocks'][contentBlockKey]['template'] is None:
             content[contentBlockKey] = "&nbsp"
         else:
-            templateFileContents = getTemplateFileContents(config['contentBlocks'][contentBlockKey]['template'],config)
+            templateFileName = getTemplateFileName(config['contentBlocks'][contentBlockKey]['template'],config)
             renderFuncName = config['contentBlocks'][contentBlockKey]['templateRenderer']
             if renderFuncName is None:
+                templateFileContents = getTemplateFileContents(templateFileName)
                 content[contentBlockKey] = templateFileContents
             else:
-                content[contentBlockKey] = globals()[renderFuncName](templateFileContents)
+                content[contentBlockKey] = globals()[renderFuncName](templateFileName,config)
     return g.outerMostTemplate(config,content)
 
 
