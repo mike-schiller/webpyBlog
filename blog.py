@@ -61,7 +61,7 @@ def setupNavLinkStyles(config):
     config['navPanelGithubStyle'] = "navPanelDefaultLinkStyle"
     config['navPanelConnectStyle'] = "navPanelDefaultLinkStyle"
 
-    if config['navTitle'] == 'Home':
+    if (config['navTitle'] == 'Home') or (config['navTitle'] == 'Blog') or (config['navTitle'] == 'Tips') or (config['navTitle'] == 'Github') or (config['navTitle'] == 'Connect'):
         config['nav'+config['navTitle']+'Style'] = "navThisLinkStyle"
         config['navPanel'+config['navTitle']+'Style'] = "navPanelThisLinkStyle"
 
@@ -97,7 +97,6 @@ def getTemplateFileName(templateFileName,config):
   return templateFileFullName
 
 def minimalRenderer(templateFile,config):
-  print templateFile
   renderer = web.template.frender(templateFile)
   return renderer(config)
 
@@ -107,7 +106,6 @@ class homeRenderer():
     config= g.pages[webpath]
     content = {}
 
-    print config
 
     for contentBlockKey in config['contentBlocks']:
         if config['contentBlocks'][contentBlockKey]['template'] is None:
@@ -155,6 +153,7 @@ if __name__ == "__main__":
     static_path = os.path.join(root_path,'static')
     g.outerMostTemplate = web.template.frender(os.path.join(static_path,'outer.html'))
     addPage(os.path.join(template_path,'home'),'/template/home',root_path)
+    addPage(os.path.join(template_path,'github'),'/template/github',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
     print 'Serving on 8088...'
