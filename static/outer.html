@@ -1,15 +1,28 @@
-$def with (config)
+$def with (config,content)
 
 <!DOCTYPE html>
 <title>$config['postTitle']</title>
 <html>
 <head>
-	<meta charset="utf-8">
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+
+
+        <!-- normally CDN hosted uncomment when doing offline development -->
+        <link rel="stylesheet" href="/static/js/jquery.mobile-1.3.2.min.css" />
+        <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/jquery.mobile-1.3.2.min.js"></script>
+        <link href="/static/font/font-awesome.css" rel="stylesheet"> 
+
+        <!-- CND Hosted - uncomment when connected to internet -->
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+
+
+        <meta charset="utf-8">
+        <!-- no CDN version available -->
         <script type="text/javascript" src="/static/js/jquery.sticky.js"></script>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
         <script>
            $$(window).load(function(){
              $$("#blogTitleOuter_small").sticky({topSpacing:0});
@@ -531,7 +544,7 @@ $$(document).bind('pageinit', function(event){
                width:100%;
                background-color:White;
                text-align:left;
-               padding:0;
+               padding-top:40px;
                float:left;
                position:relative;
                font-family:"Georgia", serif;
@@ -643,7 +656,7 @@ $$(document).bind('pageinit', function(event){
                 </div>
             </div>
             <div class="clear"></div>
-	    <div id="blogTitleOuter_small" class="blogTitleTextSmall">
+            <div id="blogTitleOuter_small" class="blogTitleTextSmall">
                 <div id="blogTitleMenu_small">
                     <a href="#popupPanel" data-rel="popup" data-transition="slide" data-position-to="window"<i class="icon-reorder"></i></a>
                 </div>
@@ -651,13 +664,13 @@ $$(document).bind('pageinit', function(event){
                 <div id="blogTitleMail_small" class="blogTitleLink">
                     <a href="#contactPanel" class="blogTitleLink" data-rel="popup" data-transition="slide" data-position-to="window"><i class="icon-envelope-alt"></i></a>
                 </div>
-	    </div>
+            </div>
        <!-- <div class="clear"></div> -->
 
             <div class="clear"></div>
-	    <div id="blogImageOuter">
+            <div id="blogImageOuter">
                 <img id="blogImageInner" src=$config['fsrelpath']/$config['postImage'] />
-	    </div>
+            </div>
             <div id="overlayBuffer">blah</div>
             <div id="textOverlay">
                 <div style="float:left;position:relative;">|</div>
@@ -727,50 +740,10 @@ Etiam imperdiet purus sed purus pulvinar, nec mollis erat dignissim. Etiam torto
 Donec sit amet pharetra diam, at malesuada nulla. Phasellus lorem dolor, pellentesque sit amet lacus et, dignissim molestie leo. Aliquam ut porta ligula. Aliquam eget diam condimentum, adipiscing odio a, posuere ligula. Cras eu urna ut lacus bibendum gravida. Donec malesuada tempor posuere. Curabitur varius sem nec posuere iaculis. Fusce lacus quam, placerat tempus tincidunt vitae, condimentum vel risus. Duis bibendum arcu a felis condimentum viverra. Morbi nibh neque, tempor sit amet ullamcorper id, tincidunt vel velit. Fusce quis justo sapien. Morbi nisl dui, luctus at malesuada sed, porttitor eget eros.
                 </div>
                 <div id="pageContentRightBuffer">
-
-                    <!-- AddThis Wrapper div -->
-                    <div id="AddThisShareFollow" class="addthis_toolbox addthis_16x16_style" style="z-index:35;float:right;position:relative;overflow:hidden;">
-                        <div>
-                            <!-- AddThis Button BEGIN -->
-                            <div>Share:</div>
-                            <div style="float:right;width=16px;" class="extLink">
-                                <a class="addthis_button_twitter" style="float:right;align:right;"></a>
-                                <a class="addthis_button_google_plusone_share"></a>
-                                <a class="addthis_button_linkedin"></a>
-                                <!--<a class="addthis_button_mailto"></a>-->
-                                <a class="addthis_button_email"></a>
-                                <a class="addthis_button_facebook"></a>
-                                <!--<a class="addthis_button_pinterest_share"></a>-->
-                                <a class="addthis_button_reddit"></a>
-                                <a class="addthis_button_stumbleupon"></a>
-                                <a class="addthis_button_print"></a>
-                                <!--<a class="addthis_button_compact"></a>-->
-                            </div>
-                            <div style="float:right;width=16px;">&nbsp</div>
-                           <script type="text/javascript">var addthis_config = {"data_track_addressbar":false};</script>
-                           <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ddbb933f48f863"></script>
-                           <!-- AddThis Button END -->
-                       </div>
-                       <div>
-                           <!-- AddThis Follow BEGIN -->
-                           <div>Follow:</div>
-                           <div style="float:right;width=16px;" class="extLink">
-                               <a class="addthis_button_twitter_follow" addthis:userid="YOUR-USERNAME"></a>
-                               <a class="addthis_button_linkedin_follow" addthis:userid="YOUR-USERNAME"></a>
-                               <a class="addthis_button_google_follow" addthis:userid="YOUR-USERNAME"></a>
-                               <div style="font-size: 20px;">
-                                   <a href="https://github.com/mike-schiller" target="_blank"><i class="icon-github"></i></a>
-                               </div>
-                               <div style="font-size: 20px;">
-                                   <a href="http://pipes.yahoo.com/pipes/pipe.run?_id=ada94e220073f409f28c3b60f41e2478&_render=rss" target="_blank"><i class="icon-rss"></i></a>
-                               </div>
-                           </div>
-                           <div style="float:right;width=16px;">&nbsp</div>
-                           <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-51ddbb933f48f863"></script>
-                           <!-- AddThis Follow END -->
-                       </div>
-                    </div> <!-- end AddThis wrapper div -->
-                    <div id="shim" style="float:right;">&nbsp</div>
+                    <!-- share/follow links go here on narrow content pages-->
+                    <div>
+                        $:content['narrowContentShareFollow']
+                    </div>
                 </div> <!-- end of pageContentRightBuffer -->
                 <div class="clear"></div>
             </div><!-- end of page contents -->
@@ -837,7 +810,12 @@ Etiam imperdiet purus sed purus pulvinar, nec mollis erat dignissim. Etiam torto
 Donec sit amet pharetra diam, at malesuada nulla. Phasellus lorem dolor, pellentesque sit amet lacus et, dignissim molestie leo. Aliquam ut porta ligula. Aliquam eget diam condimentum, adipiscing odio a, posuere ligula. Cras eu urna ut lacus bibendum gravida. Donec malesuada tempor posuere. Curabitur varius sem nec posuere iaculis. Fusce lacus quam, placerat tempus tincidunt vitae, condimentum vel risus. Duis bibendum arcu a felis condimentum viverra. Morbi nibh neque, tempor sit amet ullamcorper id, tincidunt vel velit. Fusce quis justo sapien. Morbi nisl dui, luctus at malesuada sed, porttitor eget eros.
 
                 </div>
-                <div id="pageContentWideRightBuffer">&nbsp</div>
+                <div id="pageContentWideRightBuffer">
+                    <!-- share/follow links go here on wide content pages-->
+                    <div>
+                        $:content['wideContentShareFollow']
+                    </div>
+                </div>
             </div>
             <div id="pageContentFooterOuter">
                 <div id="pageContentFooterLeftBuffer">&nbsp</div>
@@ -860,7 +838,7 @@ Donec sit amet pharetra diam, at malesuada nulla. Phasellus lorem dolor, pellent
             </div>
         </div><!-- end of column -->
     </div><!-- end of divPage -->
-    <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
+    <div data-role="popup" id="popupPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="10,10">
         <div id="navPanelTitleOuter">
             <div id="navPanelClose" class="navPanelLink">
                 <a href="#" data-rel="back" class="navPanelLink"><i class="icon-remove-sign"></i></a>
@@ -883,6 +861,8 @@ Donec sit amet pharetra diam, at malesuada nulla. Phasellus lorem dolor, pellent
             <div id="navPanelTitle" class="navPanelTitleText" width="80%">Contact</div>
         </div>
         <div>
+<form>
+</form>
 <iframe src="https://docs.google.com/forms/d/1G8aKVxpHPr00k1uLtpY_Yya6lAo1C_ZFc687M_GLvlc/viewform?embedded=true" width="500" height="650" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
         </div>
     </div>

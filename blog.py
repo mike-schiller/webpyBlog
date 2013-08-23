@@ -66,22 +66,51 @@ def setupNavLinkStyles(config):
         config['navPanel'+config['navTitle']+'Style'] = "navPanelThisLinkStyle"
 
 
-def addPage(fspath,fsrelpath):
-  #here is where we would open the yaml and set up the renderer
+def addPage(fspath,fsrelpath,fsrootpath):
   with open(os.path.join(fspath,'post.yaml')) as configFile:
     config = yaml.load(configFile)
+
+    # add info about the file system path to config
     config['fspath'] = fspath
     config['fsrelpath'] = fsrelpath
-    renderClass = config['postRenderer']
+    config['fsrootpath'] = fsrootpath
+
+    # set up the common navigation link styles
     setupNavLinkStyles(config)
-    g.urls = g.urls + (config['postWebPath'],renderClass)
+
+    # add the url and map it to the proper renderer
+    g.urls = g.urls + (config['postWebPath'],config['postRenderer'])
+
+    # map the web path to the appropriate configuration dictionary
     g.pages[config['postWebPath']] = config
+
+def getTemplateFileContents(templateFileName,config):
+  if templateFileName.startswith('.'):
+      templateFileFullName = os.path.join(config['fspath'],templateFileName)
+  else:
+      templateFileFullName = os.path.join(config['fsrootpath'],templateFileName)
+  with open(templateFileFullName) as templateFile:
+      rtn = templateFile.read()
+  return rtn
+
 
 class homeRenderer():
   def GET(self):
     webpath = web.ctx.fullpath
     config= g.pages[webpath]
-    return g.outerMostTemplate(config)
+    content = {}
+
+    for contentBlockKey in config['contentBlocks']:
+        if config['contentBlocks'][contentBlockKey]['template'] is None:
+            content[contentBlockKey] = "&nbsp"
+        else:
+            templateFileContents = getTemplateFileContents(config['contentBlocks'][contentBlockKey]['template'],config)
+            renderFuncName = config['contentBlocks'][contentBlockKey]['templateRenderer']
+            if renderFuncName is None:
+                content[contentBlockKey] = templateFileContents
+            else:
+                content[contentBlockKey] = globals()[renderFuncName](templateFileContents)
+    return g.outerMostTemplate(config,content)
 
 
 
@@ -115,7 +144,7 @@ if __name__ == "__main__":
     template_path = os.path.join(root_path,'template')
     static_path = os.path.join(root_path,'static')
     g.outerMostTemplate = web.template.frender(os.path.join(static_path,'outer.html'))
-    addPage(os.path.join(template_path,'home'),'/template/home')
+    addPage(os.path.join(template_path,'home'),'/template/home',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
     print 'Serving on 8088...'
