@@ -153,6 +153,7 @@ if __name__ == "__main__":
     static_path = os.path.join(root_path,'static')
     g.outerMostTemplate = web.template.frender(os.path.join(static_path,'outer.html'))
     addPage(os.path.join(template_path,'home'),'/template/home',root_path)
+    addPage(os.path.join(template_path,'connect'),'/template/connect',root_path)
     addPage(os.path.join(template_path,'github'),'/template/github',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
