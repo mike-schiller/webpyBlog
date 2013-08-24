@@ -188,6 +188,7 @@ if __name__ == "__main__":
     addPage(os.path.join(template_path,'connect'),'/template/connect',root_path)
     addPage(os.path.join(template_path,'github'),'/template/github',root_path)
     addBlog(os.path.join(template_path,'blog'),'/template/blog',root_path)
+    addBlog(os.path.join(template_path,'tips'),'/template/tips',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
     print 'Serving on 8088...'
