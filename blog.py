@@ -18,6 +18,7 @@ import posixpath
 import urllib
 import os
 import yaml
+import datetime
 #from darts.lib.utils.lru import LRUDict
 
 class g():
@@ -95,6 +96,7 @@ def addBlog(fspath,fsrelpath,fsrootpath):
 
     
 def previewRenderer(template,config):
+    contentDict = {}
     content = []
     blogDirContents = os.listdir(config['fspath'])
     empty = True
@@ -103,21 +105,28 @@ def previewRenderer(template,config):
       if os.path.isdir(dirEntry_fspath):
         if 'post.yaml' in os.listdir(dirEntry_fspath):
           with open(os.path.join(dirEntry_fspath,'post.yaml')) as entryConfigFile:
+            entryContent = {}
             entryConfig = yaml.load(entryConfigFile)
             entryConfig['fspath'] = dirEntry_fspath
             entryConfig['fsrelpath'] = os.path.join(config['fsrelpath'],dirEntry)
             entryConfig['fsrootpath'] = config['fsrootpath']
+            year = int(entryConfig['postDate'][0:4])
+            month = int(entryConfig['postDate'][4:6])
+            day = int(entryConfig['postDate'][6:8])
+            entryContent['postDate']= datetime.date(year,month,day).strftime("%d %B %Y")
 
-            entryContent = {'intro':"blah blah blah"}
+            entryContent['intro'] = "blah blah blah"
             renderer = web.template.frender(template)
             rendered = renderer(entryConfig,entryContent)
             print type(rendered)
             print rendered
-            content.append(str(rendered))
+            contentDict[entryConfig['postDate']] = str(rendered)
             empty = False
 
     if empty:
       return '<div style="text-align:center;">Coming Soon.</div>'
+    for item in sorted(contentDict.iteritems(),reverse=True):
+      content.append(item[1])
     return "".join(content)
 
 def getTemplateFileContents(templateFileFullName):

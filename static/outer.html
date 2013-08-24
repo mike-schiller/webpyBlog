@@ -303,10 +303,10 @@ $$(document).bind('pageinit', function(event){
         .navPanelLink a:active {color:white;text-decoration:none;}  /* selected link */
 
 
-        .extLink a {color:rgb(131, 179, 190);}
-        .extLink a:visited {color:rgb(131, 179, 190);}
-        .extLink a:hover {color:rgb(35,35,35);}
-        .extLink a:active {color:rgb(131, 179, 190);}
+        .extLink a {color:rgb(131, 179, 190);text-decoration:none;}
+        .extLink a:visited {color:rgb(131, 179, 190);text-decoration:none;}
+        .extLink a:hover {color:rgb(35,35,35);text-decoration:none;}
+        .extLink a:active {color:rgb(131, 179, 190);text-decoration:none;}
 
         .blogTitleLink a {color:rgb(35,35,35);text-decoration:none;}      /* unvisited link */
         .blogTitleLink a:visited {color:rgb(35,35,35);text-decoration:none;}  /* visited link */
@@ -677,7 +677,7 @@ $$(document).bind('pageinit', function(event){
                 <div style="margin-top:16px;font-size:64px;float:left;position:relative;">$config['postTitle']</div>
             </div>
             <div class="clear"></div>
-            <div id="pageContentOuter">
+            <div id="pageContentOuter" class="extLink">
                 <div id="pageContentLeftBuffer">&nbsp</div>
                 <div id="pageContentInner">
                         $:content['narrowContent']
@@ -690,7 +690,7 @@ $$(document).bind('pageinit', function(event){
                 </div> <!-- end of pageContentRightBuffer -->
                 <div class="clear"></div>
             </div><!-- end of page contents -->
-            <div id="pageContentWideOuter">
+            <div id="pageContentWideOuter" class="extLink">
                 <div id="pageContentWideLeftBuffer">&nbsp</div>
                 <div id="pageContentWideInner">
                         $:content['wideContent']
@@ -709,7 +709,7 @@ $$(document).bind('pageinit', function(event){
 
 
             </div>
-            <div id="pageContentFooterOuter">
+            <div id="pageContentFooterOuter" class="extLink">
                 <div id="pageContentFooterLeftBuffer">&nbsp</div>
                 <div id="pageContentFooterContentLeft">
                     $:content['leftFooterContent']
