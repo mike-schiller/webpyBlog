@@ -97,6 +97,7 @@ def addBlog(fspath,fsrelpath,fsrootpath):
 def previewRenderer(template,config):
     content = []
     blogDirContents = os.listdir(config['fspath'])
+    empty = True
     for dirEntry in blogDirContents:
       dirEntry_fspath = os.path.join(config['fspath'],dirEntry)
       if os.path.isdir(dirEntry_fspath):
@@ -113,7 +114,10 @@ def previewRenderer(template,config):
             print type(rendered)
             print rendered
             content.append(str(rendered))
+            empty = False
 
+    if empty:
+      return '<div style="text-align:center;">Coming Soon.</div>'
     return "".join(content)
 
 def getTemplateFileContents(templateFileFullName):
