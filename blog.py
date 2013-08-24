@@ -95,11 +95,8 @@ def addBlog(fspath,fsrelpath,fsrootpath):
           addPage(dirEntry_fp,os.path.join(fsrelpath,dirEntry),fsrootpath)
 
 def getPostIntro(fsPostPath,template):
-  print fsPostPath
-  print template
   with open(os.path.join(fsPostPath,template)) as templateFile:
     templateContents = templateFile.read()
-    print templateContents
     intro = templateContents.split('<intro>',1)[1].split('</intro>',1)[0]
     return intro
   return ''
@@ -153,6 +150,15 @@ def getTemplateFileName(templateFileName,config):
   else:
       templateFileFullName = os.path.join(config['fsrootpath'],templateFileName)
   return templateFileFullName
+
+def minimalRendererWithDate(templateFile,config):
+  year = int(config['postDate'][0:4])
+  month = int(config['postDate'][4:6])
+  day = int(config['postDate'][6:8])
+  dateStr = datetime.date(year,month,day).strftime("%d %B %Y")
+  renderer = web.template.frender(templateFile)
+  rendered = str(renderer(config))
+  return '<div style="width:100%"><div style="text-align:center;font-size:18px;font-family:sans;color:rgb(188,188,188)">'+dateStr+'</div>'+rendered+'</div>'
 
 def minimalRenderer(templateFile,config):
   renderer = web.template.frender(templateFile)
