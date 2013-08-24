@@ -84,6 +84,38 @@ def addPage(fspath,fsrelpath,fsrootpath):
     # map the web path to the appropriate configuration dictionary
     g.pages[config['postWebPath']] = config
 
+def addBlog(fspath,fsrelpath,fsrootpath):
+    addPage(fspath,fsrelpath,fsrootpath)
+    blogDirContents = os.listdir(fspath)
+    for dirEntry in blogDirContents:
+      dirEntry_fp = os.path.join(fspath,dirEntry)
+      if os.path.isdir(dirEntry_fp):
+        if 'post.yaml' in os.listdir(dirEntry_fp):
+          addPage(dirEntry_fp,os.path.join(fsrelpath,dirEntry),fsrootpath)
+
+    
+def previewRenderer(template,config):
+    content = []
+    blogDirContents = os.listdir(config['fspath'])
+    for dirEntry in blogDirContents:
+      dirEntry_fspath = os.path.join(config['fspath'],dirEntry)
+      if os.path.isdir(dirEntry_fspath):
+        if 'post.yaml' in os.listdir(dirEntry_fspath):
+          with open(os.path.join(dirEntry_fspath,'post.yaml')) as entryConfigFile:
+            entryConfig = yaml.load(entryConfigFile)
+            entryConfig['fspath'] = dirEntry_fspath
+            entryConfig['fsrelpath'] = os.path.join(config['fsrelpath'],dirEntry)
+            entryConfig['fsrootpath'] = config['fsrootpath']
+
+            entryContent = {'intro':"blah blah blah"}
+            renderer = web.template.frender(template)
+            rendered = renderer(entryConfig,entryContent)
+            print type(rendered)
+            print rendered
+            content.append(str(rendered))
+
+    return "".join(content)
+
 def getTemplateFileContents(templateFileFullName):
   with open(templateFileFullName) as templateFile:
       rtn = templateFile.read()
@@ -155,6 +187,7 @@ if __name__ == "__main__":
     addPage(os.path.join(template_path,'home'),'/template/home',root_path)
     addPage(os.path.join(template_path,'connect'),'/template/connect',root_path)
     addPage(os.path.join(template_path,'github'),'/template/github',root_path)
+    addBlog(os.path.join(template_path,'blog'),'/template/blog',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
     print 'Serving on 8088...'

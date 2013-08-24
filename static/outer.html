@@ -7,16 +7,16 @@ $def with (config,content)
 
 
         <!-- normally CDN hosted uncomment when doing offline development -->
-        <!-- <link rel="stylesheet" href="/static/js/jquery.mobile-1.3.2.min.css" />
+        <link rel="stylesheet" href="/static/js/jquery.mobile-1.3.2.min.css" />
         <script type="text/javascript" src="/static/js/jquery.min.js"></script>
         <script src="/static/js/jquery.mobile-1.3.2.min.js"></script>
-        <link href="/static/font/font-awesome.css" rel="stylesheet"> -->
+        <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
 
         <!-- CND Hosted - uncomment when connected to internet -->
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
 
 
         <meta charset="utf-8">
@@ -646,11 +646,11 @@ $$(document).bind('pageinit', function(event){
                 <div class="navBufferOuter navText">
                     <div class="navBufferSide">&nbsp</div>
                     <div class="navBufferCenter">
-                        <div class="navInner $config['navHomeStyle']"><a href="/">home</a></div>
-                        <div class="navInner $config['navBlogStyle']"><a href="/blog">blog</a></div>
-                        <div class="navInner $config['navTipsStyle']"><a href="/tips_and_tricks">tips & tricks</a></div>
-                        <div class="navInner $config['navGithubStyle']"><a href="/github">github</a></div>
-                        <div class="navInner $config['navConnectStyle']"><a href="/connect">connect</a></div>
+                        <div class="navInner $config['navHomeStyle']"><a  data-ajax="false" href="/">home</a></div>
+                        <div class="navInner $config['navBlogStyle']"><a data-ajax="false" href="/blog">blog</a></div>
+                        <div class="navInner $config['navTipsStyle']"><a data-ajax="false" href="/tips_and_tricks">tips & tricks</a></div>
+                        <div class="navInner $config['navGithubStyle']"><a data-ajax="false" href="/github">github</a></div>
+                        <div class="navInner $config['navConnectStyle']"><a data-ajax="false" href="/connect">connect</a></div>
                     </div>
                     <div class="navBufferSide">&nbsp</div>
                 </div>
@@ -678,7 +678,7 @@ $$(document).bind('pageinit', function(event){
             </div>
             <div class="clear"></div>
             <div id="pageContentOuter">
-                <div id="pageContentLeftBuffer">.</div>
+                <div id="pageContentLeftBuffer">&nbsp</div>
                 <div id="pageContentInner">
                         $:content['narrowContent']
                 </div>
@@ -701,6 +701,13 @@ $$(document).bind('pageinit', function(event){
                         $:content['wideContentShareFollow']
                     </div>
                 </div>
+            </div>
+            <div>
+<p style="text-align:center">&nbsp;</p>
+
+<p style="text-align:center">&nbsp;</p>
+
+
             </div>
             <div id="pageContentFooterOuter">
                 <div id="pageContentFooterLeftBuffer">&nbsp</div>
@@ -733,11 +740,11 @@ $$(document).bind('pageinit', function(event){
             <div id="navPanelTitle" class="navPanelTitleText" width="80%">Site Navigation</div>
         </div>
         <div id="navPanelLinks" class="navPanelEntryText">
-            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelHomeStyle']"></i><a href="/">Home</a></div>
-            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelBlogStyle']"></i><a href="/blog">Blog</a></div>
-            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelTipsStyle']"></i><a href="/tips_and_tricks">Tips & Tricks</a></div>
-            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelGithubStyle']"></i><a href="/github">Github</a></div>
-            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelConnectStyle']"></i><a href="/connect">Connect</a></div>
+            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelHomeStyle']"></i><a  data-ajax="false" href="/">Home</a></div>
+            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelBlogStyle']"></i><a data-ajax="false" href="/blog">Blog</a></div>
+            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelTipsStyle']"></i><a data-ajax="false" href="/tips_and_tricks">Tips & Tricks</a></div>
+            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelGithubStyle']"></i><a data-ajax="false" href="/github">Github</a></div>
+            <div class="navPanelEntryDiv"><i class="icon-long-arrow-right $config['navPanelConnectStyle']"></i><a data-ajax="false" href="/connect">Connect</a></div>
         </div>
     </div>
     <div data-role="popup" id="contactPanel" data-corners="false" data-theme="none" data-shadow="false" data-tolerance="0,0">
