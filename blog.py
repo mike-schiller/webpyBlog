@@ -94,6 +94,15 @@ def addBlog(fspath,fsrelpath,fsrootpath):
         if 'post.yaml' in os.listdir(dirEntry_fp):
           addPage(dirEntry_fp,os.path.join(fsrelpath,dirEntry),fsrootpath)
 
+def getPostIntro(fsPostPath,template):
+  print fsPostPath
+  print template
+  with open(os.path.join(fsPostPath,template)) as templateFile:
+    templateContents = templateFile.read()
+    print templateContents
+    intro = templateContents.split('<intro>',1)[1].split('</intro>',1)[0]
+    return intro
+  return ''
     
 def previewRenderer(template,config):
     contentDict = {}
@@ -115,7 +124,11 @@ def previewRenderer(template,config):
             day = int(entryConfig['postDate'][6:8])
             entryContent['postDate']= datetime.date(year,month,day).strftime("%d %B %Y")
 
-            entryContent['intro'] = "blah blah blah"
+            # there'd better be content with a <intro> tag at one of these places
+            if entryConfig['contentBlocks']['narrowContent']['template'] is not None:
+                entryContent['intro'] = getPostIntro(entryConfig['fspath'],entryConfig['contentBlocks']['narrowContent']['template'])
+            else:
+                entryContent['intro'] = getPostIntro(entryConfig['fspath'],entryConfig['contentBlocks']['wideContent']['template'])
             renderer = web.template.frender(template)
             rendered = renderer(entryConfig,entryContent)
             print type(rendered)
