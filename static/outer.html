@@ -22,32 +22,61 @@ $def with (config,content)
         <meta charset="utf-8">
         <!-- no CDN version available -->
         <script type="text/javascript" src="/static/js/jquery.sticky.js"></script>
+        <script src="/static/assets/lightbox/js/lightbox-2.6.min.js"></script>
+        <link href="/static/assets/lightbox/css/lightbox.css" rel="stylesheet" />
 
         <script>
+var isMobile = {
+    Android: function() {
+        return navigator.userAgent.match(/Android/i);
+    },
+    BlackBerry: function() {
+        return navigator.userAgent.match(/BlackBerry/i);
+    },
+    iOS: function() {
+        return navigator.userAgent.match(/iPhone|iPad|iPod/i);
+    },
+    Opera: function() {
+        return navigator.userAgent.match(/Opera Mini/i);
+    },
+    Windows: function() {
+        return navigator.userAgent.match(/IEMobile/i);
+    },
+    any: function() {
+        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+    }
+};
+
+var firefox = {
+    firefox: function(){
+        return navigator.userAgent.match(/Firefox/i);
+    }
+};
+        </script>
+
+        <script>
+
+           if (isMobile.any()){
+
+           }
+           else{
            $$(window).load(function(){
              $$("#blogTitleOuter_small").sticky({topSpacing:0});
             });
-        </script>
-        <script>
+
            $$(window).load(function(){
              $$("#textOverlay").sticky({topSpacing:64});
             });
-        </script>
-        <script>
+
            $$(window).load(function(){
-             $$("#blogImageInner").sticky({topSpacing:-361,className:"stuckImage"});
+             $$("#blogImageInnerDiv").sticky({topSpacing:-361});
              console.log("stuck image");
             });
-        </script>
-        <script>
+
            $$(window).load(function(){
-             $$("#AddThisShareFollow").sticky({topSpacing:165,className:"stuckSharing"});
+             $$("#addThisStickyWrapper").sticky({topSpacing:165});
             });
-        </script>
-        <script>
-           $$(window).load(function(){
-             $$("#shim").sticky({topSpacing:165});
-            });
+            }
         </script>
 <!-- Google Analytics -->
 <script>
@@ -125,6 +154,9 @@ $$(document).bind('pageinit', function(event){
 #contactPanel .ui-btn {
     margin: 2em 15px;
 }
+
+        .ui-body-c, .ui-overlay-c { text-shadow:none !important; }
+
         body
           {
             background-color:#f3f3f3;
@@ -449,20 +481,15 @@ $$(document).bind('pageinit', function(event){
                overflfow:hidden;
         }
 
-        .stuckImage {
-               max-width:1118px;
-               height:525px;
-               text-align:center;
-               padding:0;
-               float:left;
-               position:relative;
-               margin-left:-559px;
-               width:100%;
-               overflow:hidden;
-        }
 
         .stuckSharing{
                z-index:35;
+               float:right;
+               text-align:right;
+        }
+        .stuckShim{
+               float:right;
+               text-align:right;
         }
 
         #pageContentOuter {
@@ -492,6 +519,7 @@ $$(document).bind('pageinit', function(event){
                padding:0;
                float:left;
                position:relative;
+               font-size:16px;
         }
 
         #pageContentRightBuffer {
@@ -529,6 +557,7 @@ $$(document).bind('pageinit', function(event){
                padding:0;
                float:left;
                position:relative;
+               font-size:16px;
         }
 
         #pageContentWideRightBuffer {
@@ -669,36 +698,40 @@ $$(document).bind('pageinit', function(event){
 
             <div class="clear"></div>
             <div id="blogImageOuter">
+                <div id="blogImageInnerDiv">
                 <img id="blogImageInner" src=$config['fsrelpath']/$config['postImage'] />
+                </div>
             </div>
             <div id="overlayBuffer">blah</div>
-            <div id="textOverlay">
-                <div style="float:left;position:relative;">|</div>
-                <div style="margin-top:16px;font-size:64px;float:left;position:relative;">$config['postTitle']</div>
+            <div id="textOverlay" style:"text-shadow:none !important;">
+                <div style="float:left;position:relative;text-shadow:none !important;">|</div>
+                <div style="margin-top:16px;font-size:64px;float:left;position:relative;text-shadow:none !important;">$config['postTitle']</div>
             </div>
             <div class="clear"></div>
-            <div id="pageContentOuter" class="extLink">
-                <div id="pageContentLeftBuffer">&nbsp</div>
+            <div id="pageContentOuter" class="extLink" style="line-height:140%;">
+                <div id="pageContentLeftBuffer">
+                        $:content['narrowContentShareFollow']
+                </div>
                 <div id="pageContentInner">
                         $:content['narrowContent']
                 </div>
                 <div id="pageContentRightBuffer">
                     <!-- share/follow links go here on narrow content pages-->
-                    <div>
-                        $:content['narrowContentShareFollow']
+                    <div>&nbsp;
                     </div>
                 </div> <!-- end of pageContentRightBuffer -->
                 <div class="clear"></div>
             </div><!-- end of page contents -->
             <div id="pageContentWideOuter" class="extLink">
-                <div id="pageContentWideLeftBuffer">&nbsp</div>
+                <div id="pageContentWideLeftBuffer">
+                        $:content['wideContentShareFollow']
+                </div>
                 <div id="pageContentWideInner">
                         $:content['wideContent']
                 </div>
                 <div id="pageContentWideRightBuffer">
                     <!-- share/follow links go here on wide content pages-->
-                    <div>
-                        $:content['wideContentShareFollow']
+                    <div>&nbsp;
                     </div>
                 </div>
             </div>
@@ -762,5 +795,15 @@ $$(document).bind('pageinit', function(event){
     </div>
 
 </div>
+<script>
+           /*if (firefox.firefox()){
+             alert ('firefox');
+             document.getElementById("addThisStickyWrapper").style.float="left";
+           }
+           else{
+             document.getElementById("addThisStickyWrapper").style.float="right";
+           }*/
+</script>
+
 </body>
 </html>
