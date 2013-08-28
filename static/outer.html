@@ -7,16 +7,16 @@ $def with (config,content)
 
 
         <!-- normally CDN hosted uncomment when doing offline development -->
-        <link rel="stylesheet" href="/static/js/jquery.mobile-1.3.2.min.css" />
+        <!-- <link rel="stylesheet" href="/static/js/jquery.mobile-1.3.2.min.css" />
         <script type="text/javascript" src="/static/js/jquery.min.js"></script>
         <script src="/static/js/jquery.mobile-1.3.2.min.js"></script>
-        <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet">
+        <link href="/static/assets/font-awesome/css/font-awesome.css" rel="stylesheet"> -->
 
         <!-- CND Hosted - uncomment when connected to internet -->
-        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"> -->
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
 
 
         <meta charset="utf-8">
@@ -505,7 +505,7 @@ $$(document).bind('pageinit', function(event){
 
         #pageContentLeftBuffer {
                background-color:White;
-               width:15%;
+               width:20%;
                text-align:left;
                padding:0;
                float:left;
@@ -514,7 +514,7 @@ $$(document).bind('pageinit', function(event){
 
         #pageContentInner {
                background-color:White;
-               width:70%;
+               width:60%;
                text-align:left;
                padding:0;
                float:left;
@@ -524,7 +524,7 @@ $$(document).bind('pageinit', function(event){
 
         #pageContentRightBuffer {
                background-color:White;
-               width:15%;
+               width:20%;
                text-align:right;
                padding:0;
                float:left;
@@ -654,6 +654,29 @@ $$(document).bind('pageinit', function(event){
         .clear{
               clear:both;
         }
+
+ summary::-webkit-details-marker {
+ color: #00ACF3;
+ font-size: 125%;
+ margin-right: 2px;
+}
+summary:focus {
+	outline-style: none;
+}
+article > details > summary {
+	font-size: 28px;
+	margin-top: 16px;
+}
+details > p {
+	margin-left: 24px;
+}
+details details {
+	margin-left: 36px;
+}
+details details summary {
+	font-size: 16px;
+}
+
         </style>
 </head>
 
