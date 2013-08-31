@@ -128,8 +128,8 @@ def previewRenderer(template,config):
                 entryContent['intro'] = getPostIntro(entryConfig['fspath'],entryConfig['contentBlocks']['wideContent']['template'])
             renderer = web.template.frender(template)
             rendered = renderer(entryConfig,entryContent)
-            print type(rendered)
-            print rendered
+            #print type(rendered)
+            #print rendered
             contentDict[entryConfig['postDate']] = str(rendered)
             empty = False
 
@@ -144,6 +144,11 @@ def getTemplateFileContents(templateFileFullName):
       rtn = templateFile.read()
   return rtn
 
+def getCommentBlock(config):
+  if 'commentBlock' in config['contentBlocks']:
+    if config['contentBlocks']['commentBlock']['template'] is not None:
+      return getTemplateFileContents(config['contentBlocks']['commentBlock']['template'])
+
 def getTemplateFileName(templateFileName,config):
   if templateFileName.startswith('.'):
       templateFileFullName = os.path.join(config['fspath'],templateFileName)
@@ -157,6 +162,7 @@ def minimalRendererWithDate(templateFile,config):
   day = int(config['postDate'][6:8])
   dateStr = datetime.date(year,month,day).strftime("%d %B %Y")
   renderer = web.template.frender(templateFile)
+  config['commentBlock'] = getCommentBlock(config)
   rendered = str(renderer(config))
   return '<div style="width:100%"><div style="text-align:center;font-size:18px;font-family:sans;color:rgb(188,188,188)">'+dateStr+'</div>'+rendered+'</div>'
 
@@ -213,14 +219,14 @@ class StaticMiddleware():
 
 if __name__ == "__main__":
     root_path = os.path.dirname(os.path.abspath(__file__))
-    template_path = os.path.join(root_path,'template')
+    template_path = os.path.join(root_path,'content')
     static_path = os.path.join(root_path,'static')
     g.outerMostTemplate = web.template.frender(os.path.join(static_path,'outer.html'))
-    addPage(os.path.join(template_path,'home'),'/template/home',root_path)
-    addPage(os.path.join(template_path,'connect'),'/template/connect',root_path)
-    addPage(os.path.join(template_path,'github'),'/template/github',root_path)
-    addBlog(os.path.join(template_path,'blog'),'/template/blog',root_path)
-    addBlog(os.path.join(template_path,'tips'),'/template/tips',root_path)
+    addPage(os.path.join(template_path,'home'),'/content/home',root_path)
+    addPage(os.path.join(template_path,'connect'),'/content/connect',root_path)
+    addPage(os.path.join(template_path,'github'),'/content/github',root_path)
+    addBlog(os.path.join(template_path,'blog'),'/content/blog',root_path)
+    addBlog(os.path.join(template_path,'tips'),'/content/tips',root_path)
     print g.urls
     app = web.application(g.urls, globals()).wsgifunc()
     print 'Serving on 8088...'
