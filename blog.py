@@ -232,4 +232,4 @@ if __name__ == "__main__":
     print 'Serving on 8088...'
     wsgifunc = app
     wsgifunc = StaticMiddleware(wsgifunc,root_path=root_path)
-    WSGIServer(('', 8088), wsgifunc).serve_forever()
+    WSGIServer(('127.0.0.1', 8088), wsgifunc).serve_forever()
